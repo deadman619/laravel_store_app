@@ -19,7 +19,7 @@
                       @if(!Auth::guest())
                           @if(Auth::user()->is_admin)
                               <li class="nav-item">
-                                <a class="nav-link" href="/store_admin">Admin Panel</a>
+                                <a class="nav-link" href="/admin_panel">Admin Panel</a>
                               </li>
                           @endif
                        @endif
@@ -44,7 +44,6 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class='dropdown-item' href="/home">Home</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -21,16 +21,15 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-        @include('layouts/navbar')
-        <main class="container mt-5">
-            
-            <!-- Displays warning and success messages at the top of the container-->
-            @include('layouts/messages')
+    @include('partials/navbar')
+    <main class="container mt-5">
+        
+        <!-- Displays warning and success messages at the top of the container-->
+        @include('partials/messages')
 
-            <!-- Main content -->
-            @yield('content')
-        </main>
-    </div>
+        <!-- Main content -->
+        @yield('content')
+    </main>
 
 </body>
 </html>

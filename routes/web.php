@@ -11,11 +11,16 @@
 |
 */
 
-//Log in routes
+//Authentication routes + CRUD
 Auth::routes();
-Route::get('/store_admin', 'HomeController@index');
+Route::get('/admin_panel', 'HomeController@index');
+Route::get('/create', 'ProductController@create');
+Route::post('/store', 'ProductController@store');
+Route::get('/edit/{product}', 'ProductController@edit');
+Route::post('/update/{product}', 'ProductController@update');
+Route::get('/delete/{product}', 'HomeController@delete');
 
-//Product routes
+//User routes
 Route::get('/', 'ProductController@index');
 Route::get('/products', 'ProductController@products');
 
