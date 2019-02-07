@@ -2,24 +2,33 @@
 
 @section('content')
 	<h2>New Product</h2>
-    {!! Form::open(['action' => 'ProductController@store', 'method' => 'POST']) !!}
+    <form method='post' action='/admin_panel'>
+        @csrf
 
         <div class="form-group">
-            {{ Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Name'])}}
+            <input type="text" name="name" class='form-control' placeholder='Name'>
         </div>
         <div class="form-group">
-            {{ Form::text('base_price', '', ['class' => 'form-control', 'placeholder' => 'Base Price'])}}
+            <input type="text" name="sku" class='form-control' placeholder='Stock Keeping Unit'>
         </div>
         <div class="form-group">
-            {{ Form::text('special_price', '', ['class' => 'form-control', 'placeholder' => 'Special Price'])}}
+            <input type="text" name="base_price" class='form-control' placeholder='Base Price'>
         </div>
         <div class="form-group">
-            {{ Form::text('image', '', ['class' => 'form-control', 'placeholder' => 'Image'])}}
+            <input type="text" name="special_price" class='form-control' placeholder='Special Price'>
         </div>
         <div class="form-group">
-            {{ Form::textarea('description', '', ['id' => 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Description'])}}
+            <input type="text" name="image" class='form-control' placeholder='Image'>
         </div>
-        {{ Form::submit('Submit', ['class' => 'btn btn-primary'])}}
+        <div class="form-group">
+            <textarea id='article-ckeditor' class="form-control" name='description' rows="20" placeholder='Description'></textarea>
+        </div>
+        <div>
+            <h3>Visible in products page:<input name='status' type="checkbox" value=1></h3>
+        </div>
+         <div class="form-group">
+            <button type='submit' class='btn btn-warning'>Create Product</button>
+        </div>
 
-    {!! Form::close() !!}
+    </form>
 @endsection

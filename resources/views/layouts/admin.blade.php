@@ -21,12 +21,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    @include('partials/navbar')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                @include('partials/sidebar')
+            </div>
+            <div class="col-md-8">
                 <div class="card mt-5">
-                    <div class="card-header">{{Auth::user()->name}} Control Panel</div>
+                    <div class="card-header">Logged in as: {{Auth::user()->name}} </div>
                         <main class="container mt-5">
             
                             <!-- Displays warning and success messages at the top of the container-->
@@ -39,12 +41,13 @@
             </div>
         </div>
     </div>
-    
 
     <!-- CK Editor module for fancier descriptions -->
     <script src="{{asset('vendor/unisharp/laravel-ckeditor/ckeditor.js')}}"></script>
     <script>
-        CKEDITOR.replace( 'article-ckeditor' );
+        if(document.getElementsByTagName('textarea').length > 0){
+            CKEDITOR.replace( 'article-ckeditor' );
+        }
     </script>
 </body>
 </html>

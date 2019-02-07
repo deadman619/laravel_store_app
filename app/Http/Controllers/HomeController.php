@@ -23,11 +23,6 @@ class HomeController extends Controller
      */
     public function index() {
 
-        // Checks if the user is an administrator, redirects back to the homepage with an error message if not
-        if(auth()->user()->is_admin) {
-            $products = Product::all();
-            return view('admin_panel.main', compact('products'));
-        }
-        return redirect('/')->with('error', 'Unauthorized user');
+        return redirect('/');
     }
 }

@@ -1,0 +1,15 @@
+.card-img-top{
+	transition: all 1s linear;
+}
+.card, .product-link:hover{
+	text-decoration: none;
+	color: #000;
+}
+.img-container{
+	height: 200px;
+	position: relative;
+	overflow: hidden;
+}
+.img-container:hover .card-img-top{
+	transform: scale(1.2);
+}

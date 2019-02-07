@@ -13,15 +13,16 @@
 
 //Authentication routes + CRUD
 Auth::routes();
-Route::get('/admin_panel', 'HomeController@index');
-Route::get('/create', 'ProductController@create');
-Route::post('/store', 'ProductController@store');
-Route::get('/edit/{product}', 'ProductController@edit');
-Route::post('/update/{product}', 'ProductController@update');
-Route::get('/delete/{product}', 'HomeController@delete');
+Route::resource('admin_panel', 'ProductController');
+Route::get('/admin_panel', 'ProductController@admin');
+Route::post('/admin_panel/{id}/update', 'ProductController@update');
+Route::get('/admin_panel/{id}/delete', 'ProductController@destroy');
+Route::get('/mass_delete', 'ProductController@massDestroy');
+
 
 //User routes
 Route::get('/', 'ProductController@index');
 Route::get('/products', 'ProductController@products');
+Route::get('/products/{id}', 'ProductController@show');
 
 

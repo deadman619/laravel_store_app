@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('sku');
             // Items start out as disabled from appearing on the store
             $table->boolean('status')->default(false);
             $table->integer('base_price');
