@@ -11,6 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->insert([
+            'name' => 'admin',
+            'email' => 'admin@thissite.com',
+            'password' => bcrypt('admin1')
+        ]);
+        
     	for($i = 0; $i < 50; $i++) {
 	        DB::table('products')->insert([
 	        	'name' => str_random(10),

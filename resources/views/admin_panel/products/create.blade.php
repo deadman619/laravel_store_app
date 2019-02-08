@@ -1,4 +1,4 @@
-@extends("layouts.admin")
+@extends("admin_panel.admin")
 
 @section('content')
 	<h2>New Product</h2>

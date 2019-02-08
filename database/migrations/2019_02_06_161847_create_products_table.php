@@ -18,9 +18,9 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->integer('sku');
             // Items start out as disabled from appearing on the store
-            $table->boolean('status')->default(false);
+            $table->boolean('status')->nullable();
             $table->integer('base_price');
-            $table->integer('special_price');
+            $table->integer('special_price')->nullable();
             $table->string('image');
             $table->longText('description');
         });

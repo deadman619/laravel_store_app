@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends("admin_panel.admin")
 
 @section("content")
 	<div class="container">
 		<div class="row card-group">
 		@foreach($products as $product)
 		<div class="col-9 mx-auto col-md-6 col-lg-3 my-3 d-flex align-items-center">
-			<a href='/products/{{ $product->id }}' class='product-link'>
+			<a href='/{{ $product->id }}' class='product-link'>
 			  	<div class='card my-3'>
 					<div class="img-container p-4">
 						<img src={{ $product->image}} alt="productImage" class='card-img-top' />

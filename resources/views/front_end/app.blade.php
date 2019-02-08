@@ -22,14 +22,13 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    @include('partials/navbar')
+    @include('front_end/partials/navbar')
     <main class="container mt-5">
-        
-        <!-- Displays warning and success messages at the top of the container-->
-        @include('partials/messages')
-
-        <!-- Main content -->
-        @yield('content')
+        @if(auth()->guest()) 
+            @yield('content')
+        @else 
+            <h2>Placeholder, logged in</h2>
+        @endif
     </main>
 
 </body>

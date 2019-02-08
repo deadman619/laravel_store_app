@@ -24,7 +24,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4">
-                @include('partials/sidebar')
+                @include('admin_panel/partials/sidebar')
             </div>
             <div class="col-md-8">
                 <div class="card mt-5">
@@ -32,7 +32,7 @@
                         <main class="container mt-5">
             
                             <!-- Displays warning and success messages at the top of the container-->
-                            @include('partials/messages')
+                            @include('admin_panel/partials/messages')
 
                             <!-- Main content -->
                             @yield('content')

@@ -1,8 +1,8 @@
-@extends("layouts.admin")
+@extends("admin_panel.admin")
 
 @section('content')
 	<h2>Editing Product ID:{{$product->id}}</h2>
-    <form method='post' action='/admin_panel/{{$product->id}}/update'>
+    <form method='post' action='/admin_panel/update/{{$product->id}}'>
         @csrf
 
         <div class="form-group">

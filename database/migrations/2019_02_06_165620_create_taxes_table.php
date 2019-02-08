@@ -16,8 +16,8 @@ class CreateTaxesTable extends Migration
         Schema::create('taxes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->default('Standard');
-            $table->boolean('enabled')->default(true);
-            $table->integer('tax_rate')->default(1.21);
+            $table->boolean('enabled')->nullable();
+            $table->integer('tax_rate')->default(21);
             $table->integer('global_discount')->nullable();
         });
     }
