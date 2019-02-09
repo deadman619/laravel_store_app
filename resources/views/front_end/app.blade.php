@@ -24,12 +24,9 @@
 <body>
     @include('front_end/partials/navbar')
     <main class="container mt-5">
-        @if(auth()->guest()) 
-            @yield('content')
-        @else 
-            <h2>Placeholder, logged in</h2>
-        @endif
+        @yield('content')
     </main>
-
+    
+    <script type="text/javascript" src='{{ asset('js/front_end.js')}}'></script>
 </body>
 </html>

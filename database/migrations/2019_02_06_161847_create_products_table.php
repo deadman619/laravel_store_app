@@ -16,13 +16,14 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('sku');
-            // Items start out as disabled from appearing on the store
+            $table->bigInteger('sku');
             $table->boolean('status')->nullable();
-            $table->integer('base_price');
-            $table->integer('special_price')->nullable();
+            $table->float('base_price');
+            $table->integer('individual_discount')->nullable();
             $table->string('image');
             $table->longText('description');
+            $table->float('post_tax_price')->nullable();
+            $table->float('consumer_price')->nullable();
         });
     }
 

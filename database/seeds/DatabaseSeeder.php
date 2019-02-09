@@ -16,16 +16,26 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@thissite.com',
             'password' => bcrypt('admin1')
         ]);
+
+        DB::table('taxes')->insert([
+            'name' => 'Standard',
+            'enabled' => 1,
+            'tax_rate' => 21,
+            'global_discount' => 0
+        ]);
         
-    	for($i = 0; $i < 50; $i++) {
+    	for($i = 0; $i < 20; $i++) {
+            $price = rand(1,3000);
+            $taxed = $price + ($price * (21/100));
 	        DB::table('products')->insert([
 	        	'name' => str_random(10),
 	            'sku' => rand(100, 10000),
-	            'base_price' => rand(1,3000),
+	            'base_price' => $price,
 	            'description' => str_random(100),
-	            'special_price' => rand(1,3000),
 	            'image' => "https://loremflickr.com/3". rand(10,99) ."/240",
-	            'status' => 1
+	            'status' => 1,
+                'post_tax_price' => $taxed,
+                'consumer_price' => $taxed
 	        ]);
     	}
     }

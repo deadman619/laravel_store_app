@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tax;
+use App\Product;
 
 class TaxController extends Controller
 {
@@ -32,6 +33,7 @@ class TaxController extends Controller
             'global_discount' => request('global_discount'),
             'enabled' =>request('enable')
         ]);
+        $this->setTaxedPrice();
         return redirect('/admin_panel')->with('success', 'Tax Settings Saved');
     }
 
@@ -48,6 +50,34 @@ class TaxController extends Controller
             'global_discount' => request('global_discount'),
             'enabled' =>request('enable')
         ]);
+        $this->setTaxedPrice();
         return redirect('/admin_panel')->with('success', 'Tax Settings Saved');
+    }
+
+    public function setTaxedPrice() {
+        $products = Product::all();
+        $tax = Tax::find(1);
+        foreach($products as $product) {
+            // Apply tax to base price
+            if ($tax->enabled) {
+                $product->post_tax_price = $product->base_price + ($product->base_price * ($tax->tax_rate / 100));
+            } else {
+                $product->post_tax_price = $product->base_price;
+            }
+            // If exists, apply individual discount or global discount
+            if ($product->individual_discount) {
+                $product->consumer_price = $product->post_tax_price - ($product->post_tax_price * ($product->individual_discount / 100));
+            } else if ($tax->global_discount) {
+                $product->consumer_price = $product->post_tax_price - ($product->post_tax_price * ($tax->global_discount / 100));
+            } else {
+                $product->consumer_price = $product->post_tax_price;
+            }
+            $product->post_tax_price = round($product->post_tax_price, 2, PHP_ROUND_HALF_UP);
+            $product->consumer_price = round($product->consumer_price, 2, PHP_ROUND_HALF_UP);
+            $product->update([
+                'post_tax_price' => $product->post_tax_price,
+                'consumer_price' => $product->consumer_price
+            ]);
+        }
     }
 }

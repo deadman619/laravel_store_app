@@ -6,21 +6,27 @@
         @csrf
 
         <div class="form-group">
+            Product name:
             <input type="text" name="name" class='form-control' value={{$product->name}}>
         </div>
         <div class="form-group">
+            Stock keeping unit number:
             <input type="text" name="sku" class='form-control' value={{$product->sku}}>
         </div>
         <div class="form-group">
+            Base price:
             <input type="text" name="base_price" class='form-control' value={{$product->base_price}}>
         </div>
         <div class="form-group">
-            <input type="text" name="special_price" class='form-control' value={{$product->special_price}}>
+            Discount (leave blank for none):
+            <input type="text" name="individual_discount" class='form-control' value={{$product->individual_discount}}>
         </div>
         <div class="form-group">
+            Link to product image:
             <input type="text" name="image" class='form-control' value={{$product->image}}>
         </div>
         <div class="form-group">
+            Detailed description of the product:
             <textarea id='article-ckeditor' class="form-control" name='description' rows="20" placeholder='Description'>{{$product->description}}</textarea>
         </div>
         <div>

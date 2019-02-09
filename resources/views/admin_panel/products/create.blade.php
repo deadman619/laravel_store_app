@@ -6,21 +6,27 @@
         @csrf
 
         <div class="form-group">
+            Product name:
             <input type="text" name="name" class='form-control' placeholder='Name'>
         </div>
         <div class="form-group">
+            Stock keeping unit number:
             <input type="text" name="sku" class='form-control' placeholder='Stock Keeping Unit'>
         </div>
         <div class="form-group">
+            Base price:
             <input type="text" name="base_price" class='form-control' placeholder='Base Price'>
         </div>
         <div class="form-group">
-            <input type="text" name="special_price" class='form-control' placeholder='Special Price'>
+            Discount (leave blank for none):
+            <input type="text" name="individual_discount" class='form-control' placeholder='Discount (i.e. 20 for 20% off)'>
         </div>
         <div class="form-group">
-            <input type="text" name="image" class='form-control' placeholder='Image'>
+            Link to product image:
+            <input type="text" name="image" class='form-control' placeholder='Image URL'>
         </div>
         <div class="form-group">
+            Detailed description of the product:
             <textarea id='article-ckeditor' class="form-control" name='description' rows="20" placeholder='Description'></textarea>
         </div>
         <div>

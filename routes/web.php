@@ -16,6 +16,7 @@ Auth::routes();
 Route::get('/admin_panel', 'ProductController@admin');
 Route::get('/admin_panel/create', 'ProductController@create');
 Route::post('/admin_panel', 'ProductController@store');
+Route::get('/admin_panel/show/{id}', 'ProductController@show');
 Route::get('/admin_panel/edit/{id}', 'ProductController@edit');
 Route::post('/admin_panel/update/{id}', 'ProductController@update');
 Route::get('/admin_panel/delete/{id}', 'ProductController@destroy');
@@ -24,8 +25,7 @@ Route::get('/admin_panel/taxes', 'TaxController@index');
 Route::post('/admin_panel/taxes/create', 'TaxController@store');
 Route::post('/admin_panel/taxes/update', 'TaxController@update');
 
-
 //User routes
-Route::view('/', 'front_end/app');
+Route::view('/','front_end.products.products');
 
 

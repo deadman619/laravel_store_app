@@ -17,8 +17,13 @@
 		</div>
 		<div class="row">
 			<div class="col-10 mx-auto col-md6 mt-3 text-center">
-				<h4>Price: {{ $product->base_price }}€</h4>
+				@if($product->consumer_price != $product->post_tax_price)
+					<h4>Price: <span class='text-success'>{{ $product->consumer_price }}€</span><s>{{ $product->post_tax_price }}€</s></h4>
+				@else 
+					<h4>Price: {{ $product->consumer_price }}€</h4>
+				@endif
 				<a href={{URL::previous()}} class='btn btn-outline-danger mx-2 mt-2'>Return</a>
+				<a href='/admin_panel/edit/{{ $product->id }}' class='btn btn-outline-info mx-2 mt-2'>Edit</a>
 			</div>
 		</div>
 	</div>

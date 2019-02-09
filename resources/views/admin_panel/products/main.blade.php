@@ -9,7 +9,7 @@
                 <tr>
                     <th><button type="submit" class='btn btn-danger'">Delete Selected</button></th>
                     <th>Product Name</th>
-                    <th>Price</th>
+                    <th>Price (* - individual discount)</th>
                     <th>Status</th>
                     <th></th>
                     <th></th>
@@ -20,10 +20,18 @@
                     <td><input class='markedList' type="checkbox" name="markedList[]" value={{$product->id}}></td>
                     <td>{{$product->name}}</td>
 
-                    @if($product->special_price)
-                        <td>{{$product->special_price}}€ <span class='text-success'>SPECIAL PRICE</span></td>
+                    @if($product->consumer_price != $product->post_tax_price)
+                        <td>
+                            <span class='text-success'>{{$product->consumer_price}}€</span>
+                            <s>{{$product->post_tax_price}}€</s>
+                            @if($product->individual_discount)
+                            ({{$product->individual_discount}}% off)*
+                            @else
+                            ({{$tax->global_discount}}% off)
+                            @endif
+                        </td>
                     @else
-                        <td>{{$product->base_price}}€</td>
+                        <td>{{$product->consumer_price}}€</td>
                     @endif
 
                     @if($product->status)
@@ -32,7 +40,7 @@
                         <td>Disabled</td>
                     @endif
 
-                    <td><a href="/{{$product->id}}" class="btn btn-sm btn-success">View</a></td>
+                    <td><a href="/admin_panel/show/{{$product->id}}" class="btn btn-sm btn-success">View</a></td>
                     <td><a href="/admin_panel/edit/{{$product->id}}" class="btn btn-sm btn-warning">Edit</a></td>
                     <td><a href="/admin_panel/delete/{{$product->id}}" class='btn btn-sm btn-danger'>Delete</a></td>
                 </tr>

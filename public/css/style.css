@@ -13,3 +13,9 @@
 .img-container:hover .card-img-top{
 	transform: scale(1.2);
 }
+.product-link:hover, .nav-item:hover {
+	cursor: pointer;
+}
+.description {
+	overflow: hidden;
+}
