@@ -58,8 +58,12 @@ function detailedPage($id) {
 			productDetails += "<div id='reviews' class='mt-5'>"
 
 			// Reviews start from newest first
-			for (let i = product.reviews.length-1; i>0; i--) {
-				productDetails += "<div class='card mt-3 p-2'><h4><span class='text-info'>" + product.reviews[i].name +"</span> rated it " + product.reviews[i].rating + "/5</h4><p>" + product.reviews[i].review + "</p></div>"
+			if (product.reviews.length > 1) {
+				for (let i = product.reviews.length-1; i>0; i--) {
+					productDetails += "<div class='card mt-3 p-2'><h4><span class='text-info'>" + product.reviews[i].name +"</span> rated it " + product.reviews[i].rating + "/5</h4><p>" + product.reviews[i].review + "</p></div>"
+				}
+			} else if (product.reviews.length == 1) {
+				productDetails += "<div class='card mt-3 p-2'><h4><span class='text-info'>" + product.reviews[0].name +"</span> rated it " + product.reviews[0].rating + "/5</h4><p>" + product.reviews[0].review + "</p></div>"
 			}
 			productDetails +="</div>"
 			document.getElementById('productContainer').innerHTML = productDetails;
@@ -96,7 +100,6 @@ function submitReview($id) {
 		"rating" : rating,
 		"product_id" : $id
 	})
-	console.log('called')
 	var ajax = new XMLHttpRequest();
 	ajax.open('POST', 'api/product/review');
 	ajax.setRequestHeader('Content-Type', 'application/json');
