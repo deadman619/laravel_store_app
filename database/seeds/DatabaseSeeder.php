@@ -38,5 +38,14 @@ class DatabaseSeeder extends Seeder
                 'consumer_price' => $taxed
 	        ]);
     	}
+
+        for($i = 0; $i < 50; $i++) {
+            DB::table('reviews')->insert([
+                'name' => str_random(5),
+                'review' => str_random(10),
+                'rating' => rand(1,5),
+                'product_id' => rand(1, 20)
+            ]);
+        }
     }
 }
