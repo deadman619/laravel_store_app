@@ -11,11 +11,25 @@
 	overflow: hidden;
 }
 .img-container:hover .card-img-top{
-	transform: scale(1.2);
+	transform: scale(1.3);
 }
 .product-link:hover, .nav-item:hover {
 	cursor: pointer;
 }
 .description {
 	overflow: hidden;
+}
+#reviews {
+	animation: popIn 1s;
+}
+.container {
+	animation: fadeIn 1s;
+}
+@keyframes popIn {
+    from {transform: scale(0.85); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+@keyframes fadeIn {
+	from {opacity: 0;}
+	to {opacity: 1;}
 }

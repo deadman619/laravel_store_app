@@ -15,9 +15,17 @@ function initialProductsPage() {
 				productContainer+="<img src=" + products[product].image + " alt='productImage' class='card-img-top'/></div>"
 
 				// Card Footer
+				productContainer+="<b class='text-center'>"
+				if(products[product].average > 0) {
+					productContainer+= "Rating: " + products[product].average + "/5<i class='fas fa-star'></i>"
+				} else {
+					productContainer+= "Not Rated"
+				}
+				productContainer+="</b>"
 				productContainer+="<div class='card-footer'>"
 				productContainer+="<p class='d-flex justify-content-between'>" + products[product].name + "<span>SKU:" + products[product].sku + "</span></p>"
 				productContainer+="<h5 class='font-italic mb-0 d-flex justify-content-end'>" + products[product].consumer_price + "€ "
+
 				if (products[product].consumer_price != products[product].post_tax_price) {
 					productContainer+= "<s class='ml-2'>" + products[product].post_tax_price + "€</s>"
 				}
@@ -59,10 +67,12 @@ function detailedPage($id) {
 
 			// Reviews start from newest first
 			if (product.reviews.length > 1) {
-				for (let i = product.reviews.length-1; i>0; i--) {
+				productDetails +="<div class='text-center'><h1>Average Rating: " + product.avg_rating + "/5<i class='fas fa-star'></i></h1>" + product.review_count + " Reviews</div>"
+				for (let i = product.reviews.length-1; i>=0; i--) {
 					productDetails += "<div class='card mt-3 p-2'><h4><span class='text-info'>" + product.reviews[i].name +"</span> rated it " + product.reviews[i].rating + "/5</h4><p>" + product.reviews[i].review + "</p></div>"
 				}
 			} else if (product.reviews.length == 1) {
+				productDetails +="<div class='text-center'><h1>Average Rating: " + product.avg_rating + "/5<i class='fas fa-star'></i></h1>" + product.review_count + " Review</div>"
 				productDetails += "<div class='card mt-3 p-2'><h4><span class='text-info'>" + product.reviews[0].name +"</span> rated it " + product.reviews[0].rating + "/5</h4><p>" + product.reviews[0].review + "</p></div>"
 			}
 			productDetails +="</div>"
