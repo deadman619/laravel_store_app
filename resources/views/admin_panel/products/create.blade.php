@@ -27,7 +27,7 @@
         </div>
         <div class="form-group">
             Detailed description of the product:
-            <textarea id='article-ckeditor' class="form-control" name='description' rows="20" placeholder='Description'></textarea>
+            <textarea id='article-ckeditor' class="form-control" name='description' rows="20" placeholder='Description'>Product Description Goes Here</textarea>
         </div>
         <div>
             <h3>Visible in products page:<input name='status' type="checkbox" value=1></h3>

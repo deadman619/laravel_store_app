@@ -96,14 +96,15 @@ class ProductController extends Controller
     public function setIndividualTaxedPrice($id) {
         $product = Product::find($id);
         $tax = Tax::find(1);
-        if($tax->enabled) {
+        // If tax hasn't been set at all, both post tax and consumer prices are set to base price
+        if($tax && $tax->enabled) {
             $product->post_tax_price = $product->base_price + ($product->base_price * ($tax->tax_rate / 100));
         } else {
             $product->post_tax_price = $product->base_price;
         }
         if ($product->individual_discount) {
             $product->consumer_price = $product->post_tax_price - ($product->post_tax_price * ($product->individual_discount / 100));
-        } else if ($tax->global_discount) {
+        } else if ($tax && $tax->global_discount) {
             $product->consumer_price = $product->post_tax_price - ($product->post_tax_price * ($tax->global_discount / 100));
         } else {
             $product->consumer_price = $product->post_tax_price;
