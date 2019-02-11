@@ -12,23 +12,27 @@ class ProductController extends Controller
     public function __construct() {
         $this->middleware('admin');
     }
-
+    
+    // Show individual product in admin panel
     public function show($id) {
         $product = Product::find($id);
         $tax = Tax::find(1);
         return view('admin_panel.products.product_details', compact('product', 'tax'));
     }
 
+    // Show main page of admin panel
     public function admin() {
         $products = Product::all();
         $tax = Tax::find(1);
         return view('admin_panel.products.main', compact('products', 'tax'));
     }
     
+    // Show create page
     public function create() {
         return view('admin_panel.products.create');
     }
 
+    // Save created product
     public function store(Request $request) {
         $this->validate($request, [
             'name' => 'required',
@@ -64,11 +68,13 @@ class ProductController extends Controller
         return redirect('/admin_panel')->with('success', 'Product Added');
     }
 
+    // Show edit page
     public function edit($id) {
         $product = Product::find($id);
         return view('admin_panel.products.edit', compact('product'));
     }
 
+    // Update edited product
     public function update(Request $request, $id) {
         $this->validate($request, [
             'name' => 'required',
@@ -84,8 +90,10 @@ class ProductController extends Controller
         if(!$request->image && $request->hasFile('upload_image')) {
             $imageLocation = '/storage/images/_'.time().$request->file('upload_image')->getClientOriginalName();
             $path = $request->file('upload_image')->storeAs('public/images', '_'.time().$request->file('upload_image')->getClientOriginalName());
+            $this->uploadedImageDelete($product);
         } else if($request->image) {
             $imageLocation = request('image');
+            $this->uploadedImageDelete($product);
         } else {
             $imageLocation = $product->image;
         }
@@ -103,26 +111,32 @@ class ProductController extends Controller
         return redirect('/admin_panel')->with('success', 'Product Updated');
     }
 
+    // Delete product
     public function destroy($id) {
         $product = Product::find($id);
-        if(!filter_var($product->image, FILTER_VALIDATE_URL)) {
-            Storage::delete(str_replace('storage', 'public', $product->image));
-        }
+        $this->uploadedImageDelete($product);
         $product->delete();
         return redirect('admin_panel')->with('success', 'Product Deleted');
     }
 
+    // Delete selected products
     public function massDestroy(Request $request) {
         foreach($request->markedList as $markedItem) {
             $product = Product::find($markedItem);
-            if(!filter_var($product->image, FILTER_VALIDATE_URL)) {
-                Storage::delete(str_replace('storage', 'public', $product->image));
-            }
+            $this->uploadedImageDelete($product);
             $product->delete();
         }
         return redirect('admin_panel')->with('success', 'Products Deleted');
     }
 
+    // If image is from upload, delete the image from storage
+    public function uploadedImageDelete($product) {
+        if(!filter_var($product->image, FILTER_VALIDATE_URL)) {
+            Storage::delete(str_replace('storage', 'public', $product->image));
+        }
+    }
+
+    // Calculate taxed price and discount right after a product is created or updated
     public function setIndividualTaxedPrice($id) {
         $product = Product::find($id);
         $tax = Tax::find(1);

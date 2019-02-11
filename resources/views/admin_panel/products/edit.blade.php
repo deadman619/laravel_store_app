@@ -7,7 +7,7 @@
 
         <div class="form-group">
             Product name:
-            <input type="text" name="name" class='form-control' value={{$product->name}}>
+            <input type="text" name="name" class='form-control' value="{{$product->name}}">
         </div>
         <div class="form-group">
             Stock keeping unit number:
@@ -22,7 +22,7 @@
             <input type="text" name="individual_discount" class='form-control' value={{$product->individual_discount}}>
         </div>
         <div class="form-group">
-            Product image: <span class='text-danger'>Typing in anything to this field or uploading a file will overwrite your current image</span>
+            Current image: <b>{{$product->image}}</b><p class='text-danger mb-0'>WARNING: Updating the form with content here will delete your current image</p>
             <input type="text" name="image" class='form-control' placeholder='Image URL'>
             <input type="file" name="upload_image">
         </div>

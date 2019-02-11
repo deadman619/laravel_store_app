@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
             Global discount (leave blank to disable):
-            <input type="text" name="global_discount" class='form-control' placeholder='Global Discount'>
+            <input type="text" name="global_discount" class='form-control' placeholder='Global Discount' value={{$tax->global_discount}}>
         </div>
         <div>
         	@if(($tax->enabled))

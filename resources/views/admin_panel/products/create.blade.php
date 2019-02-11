@@ -22,7 +22,7 @@
             <input type="text" name="individual_discount" class='form-control' placeholder='Discount (i.e. 20 for 20% off)'>
         </div>
         <div class="form-group">
-            Product image: <span class='text-danger'>Leave URL field blank if you are uploading an image, as the URL field has priority</span>:
+            Product image: <span class='text-danger'>If the URL field and upload are both filled, URL has priority</span>
             <input type="text" name="image" class='form-control' placeholder='Image URL'>
             <input type="file" name="upload_image">
         </div>

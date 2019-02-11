@@ -1,3 +1,5 @@
+
+// Renders homepage
 function initialProductsPage() {
 	var ajax = new XMLHttpRequest();
 	ajax.open('GET', 'api/products');
@@ -40,6 +42,7 @@ function initialProductsPage() {
 }
 initialProductsPage();
 
+// Renders product details page
 function detailedPage($id) {
 	var ajax = new XMLHttpRequest();
 	ajax.open('GET', 'api/product/' + $id);
@@ -62,6 +65,8 @@ function detailedPage($id) {
 			}
 			productDetails += "<button class='btn btn-outline-info mx-2 mt-2' onclick='initialProductsPage()'>Return</button>"
 			productDetails += "<button class='btn btn-outline-warning mx-2 mt-2' onclick='newReview(" + product.product.id + ")'>Review</button>"
+
+			// Review form
 			productDetails += "</div></div><div id='reviewForm'></div>"
 			productDetails += "<div id='reviews' class='mt-5'>"
 
@@ -81,8 +86,9 @@ function detailedPage($id) {
 	}
 }
 
+// Renders review form 
 function newReview($id) {
-	var reviewForm = "<form onsubmit='submitReview(" + $id + ")' method='post' id='review' class='card p-3 mt-3'><div class='form-group'>Name<input type='text' id='name' name='name' class='form-control'></div>"
+	var reviewForm = "<form onsubmit='submitReview(" + $id + ")' method='post' id='review' class='card p-3 mt-3'><div class='form-group'>Name<input type='text' id='name' name='name' class='form-control' required></div>"
 	reviewForm += "<div class='form-group'>Review<textarea id='reviewText' name='reviewText' class='form-control' required></textarea></div>"
 	reviewForm += "<div class='form-group'>Rating<select class='form-control' id='rating'>"
 	reviewForm += "<option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option></select></div>"
@@ -100,6 +106,7 @@ function newReview($id) {
 	}
 }
 
+// Sends post request with review data
 function submitReview($id) {
 	var name = document.getElementById('name').value
 	var review = document.getElementById('reviewText').value

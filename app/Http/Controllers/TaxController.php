@@ -12,6 +12,7 @@ class TaxController extends Controller
         $this->middleware('admin');
     }
 
+    // Initially sends admin to create new tax, afterwards sends to tax update page
     public function index() {
     	if(!Tax::find(1)) {
         	return view('admin_panel.taxes.tax_create');
@@ -21,6 +22,7 @@ class TaxController extends Controller
     	}
     }
 
+    // Saves initial tax and global discount settings
     public function store(Request $request) {
         $this->validate($request, [
             'name' => 'required',
@@ -37,6 +39,7 @@ class TaxController extends Controller
         return redirect('/admin_panel')->with('success', 'Tax Settings Saved');
     }
 
+    // Updates tax and global discount settings
     public function update(Request $request) {
         $this->validate($request, [
             'name' => 'required',
@@ -54,6 +57,7 @@ class TaxController extends Controller
         return redirect('/admin_panel')->with('success', 'Tax Settings Saved');
     }
 
+    // Called everytime taxes or discount is set or updated to recalculate prices for everything
     public function setTaxedPrice() {
         $products = Product::all();
         $tax = Tax::find(1);
