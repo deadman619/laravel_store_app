@@ -2,7 +2,7 @@
 
 @section('content')
 	<h2>New Product</h2>
-    <form method='post' action='/admin_panel'>
+    <form method='post' action='/admin_panel' enctype='multipart/form-data'>
         @csrf
 
         <div class="form-group">
@@ -22,8 +22,9 @@
             <input type="text" name="individual_discount" class='form-control' placeholder='Discount (i.e. 20 for 20% off)'>
         </div>
         <div class="form-group">
-            Link to product image:
+            Product image: <span class='text-danger'>Leave URL field blank if you are uploading an image, as the URL field has priority</span>:
             <input type="text" name="image" class='form-control' placeholder='Image URL'>
+            <input type="file" name="upload_image">
         </div>
         <div class="form-group">
             Detailed description of the product:

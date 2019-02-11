@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Tax;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -35,17 +36,29 @@ class ProductController extends Controller
             'base_price' => 'required|numeric',
             'description' => 'required',
             'individual_discount' => 'integer|nullable|digits_between:1,100',
-            'image' => 'required|url'
+            'image' => 'required_without:upload_image|nullable|url',
+            'upload_image' => 'required_without:image|image|max:4096'
         ]);
+
+        // If both are filled, this prioritizes URL over upload
+        // Adding timestamp to filename to avoid potential filename conflicts
+        if(!$request->image && $request->hasFile('upload_image')) {
+            $imageLocation = '/storage/images/_'.time().$request->file('upload_image')->getClientOriginalName();
+            $path = $request->file('upload_image')->storeAs('public/images', '_'.time().$request->file('upload_image')->getClientOriginalName());
+        } else {
+            $imageLocation = request('image');
+        }
+
         Product::create([
             'name' => request('name'),
             'sku' => request('sku'),
             'base_price' => request('base_price'),
             'description' => request('description'),
             'individual_discount' => request('individual_discount'),
-            'image' => request('image'),
+            'image' => $imageLocation,
             'status' =>request('status'),
         ]);
+        
         $product = Product::orderby('id', 'desc')->first();
         $this->setIndividualTaxedPrice($product->id);
         return redirect('/admin_panel')->with('success', 'Product Added');
@@ -63,16 +76,27 @@ class ProductController extends Controller
             'base_price' => 'required|numeric',
             'description' => 'required',
             'individual_discount' => 'integer|nullable|digits_between:1,100',
-            'image' => 'required|url'
+            'image' => 'nullable|url',
+            'upload_image' => 'nullable|image|max:4096'
         ]);
+
         $product = Product::find($id);
+        if(!$request->image && $request->hasFile('upload_image')) {
+            $imageLocation = '/storage/images/_'.time().$request->file('upload_image')->getClientOriginalName();
+            $path = $request->file('upload_image')->storeAs('public/images', '_'.time().$request->file('upload_image')->getClientOriginalName());
+        } else if($request->image) {
+            $imageLocation = request('image');
+        } else {
+            $imageLocation = $product->image;
+        }
+
         $product->update([
             'name' => request('name'),
             'sku' => request('sku'),
             'base_price' => request('base_price'),
             'description' => request('description'),
             'individual_discount' => request('individual_discount'),
-            'image' => request('image'),
+            'image' => $imageLocation,
             'status' =>request('status')
         ]);
         $this->setIndividualTaxedPrice($product->id);
@@ -81,6 +105,9 @@ class ProductController extends Controller
 
     public function destroy($id) {
         $product = Product::find($id);
+        if(!filter_var($product->image, FILTER_VALIDATE_URL)) {
+            Storage::delete(str_replace('storage', 'public', $product->image));
+        }
         $product->delete();
         return redirect('admin_panel')->with('success', 'Product Deleted');
     }
@@ -88,6 +115,9 @@ class ProductController extends Controller
     public function massDestroy(Request $request) {
         foreach($request->markedList as $markedItem) {
             $product = Product::find($markedItem);
+            if(!filter_var($product->image, FILTER_VALIDATE_URL)) {
+                Storage::delete(str_replace('storage', 'public', $product->image));
+            }
             $product->delete();
         }
         return redirect('admin_panel')->with('success', 'Products Deleted');

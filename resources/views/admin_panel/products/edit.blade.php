@@ -2,7 +2,7 @@
 
 @section('content')
 	<h2>Editing Product ID:{{$product->id}}</h2>
-    <form method='post' action='/admin_panel/update/{{$product->id}}'>
+    <form method='post' action='/admin_panel/update/{{$product->id}}' enctype='multipart/form-data'>
         @csrf
 
         <div class="form-group">
@@ -22,8 +22,9 @@
             <input type="text" name="individual_discount" class='form-control' value={{$product->individual_discount}}>
         </div>
         <div class="form-group">
-            Link to product image:
-            <input type="text" name="image" class='form-control' value={{$product->image}}>
+            Product image: <span class='text-danger'>Typing in anything to this field or uploading a file will overwrite your current image</span>
+            <input type="text" name="image" class='form-control' placeholder='Image URL'>
+            <input type="file" name="upload_image">
         </div>
         <div class="form-group">
             Detailed description of the product:
