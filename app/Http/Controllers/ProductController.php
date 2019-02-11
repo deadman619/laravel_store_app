@@ -46,6 +46,7 @@ class ProductController extends Controller
 
         // If both are filled, this prioritizes URL over upload
         // Adding timestamp to filename to avoid potential filename conflicts
+        // Requires php artisan storage:link
         if(!$request->image && $request->hasFile('upload_image')) {
             $imageLocation = '/storage/images/_'.time().$request->file('upload_image')->getClientOriginalName();
             $path = $request->file('upload_image')->storeAs('public/images', '_'.time().$request->file('upload_image')->getClientOriginalName());
